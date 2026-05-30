@@ -41,7 +41,12 @@ public final class ArrayUtil {
     @SuppressWarnings("unchecked")
     public static <T extends Comparable<? super T>> T[] copyToArray(AbstractArrayWrapper<T> wrapper) {
 
-        T[] result = (T[]) new Comparable[wrapper.size()];
+        if (wrapper.isEmpty()) {
+            return (T[]) new Comparable[0];
+        }
+
+        T[] result = (T[]) java.lang.reflect.Array.newInstance(
+                wrapper.get(0).getClass(), wrapper.size());
 
         for (int i = 0; i < wrapper.size(); i++) {
             result[i] = wrapper.get(i);

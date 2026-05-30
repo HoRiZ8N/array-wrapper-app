@@ -16,6 +16,12 @@ public interface ArraySortService<T extends Comparable<? super T>> {
     /**
      * Sorts the elements of the given wrapper using the bubble sort algorithm.
      *
+     * <p>Time complexity:
+     * <ul>
+     *     <li>Best case: O(n)</li>
+     *     <li>Worst case: O(n²)</li>
+     * </ul>
+     *
      * @param wrapper the array wrapper whose elements are to be sorted
      * @return a new wrapper containing the elements in ascending order
      */
@@ -23,6 +29,12 @@ public interface ArraySortService<T extends Comparable<? super T>> {
 
     /**
      * Sorts the elements of the given wrapper using the quick sort algorithm.
+     *
+     * <p>Time complexity:
+     * <ul>
+     *     <li>Average case: O(n log n)</li>
+     *     <li>Worst case: O(n²)</li>
+     * </ul>
      *
      * @param wrapper the array wrapper whose elements are to be sorted
      * @return a new wrapper containing the elements in ascending order

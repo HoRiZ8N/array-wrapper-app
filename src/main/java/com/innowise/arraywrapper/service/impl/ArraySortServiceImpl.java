@@ -32,23 +32,17 @@ public class ArraySortServiceImpl<T extends Comparable<? super T>>
     }
 
     /**
-     * Sorts elements using Bubble Sort algorithm.
+     * {@inheritDoc}
      *
-     * <p>Bubble Sort repeatedly compares adjacent elements and swaps them
-     * if they are in the wrong order. The algorithm stops early if no swaps
-     * occur in a full iteration.
-     *
-     * <p>Time complexity:
-     * <ul>
-     *     <li>Best case: O(n)</li>
-     *     <li>Worst case: O(n²)</li>
-     * </ul>
-     *
-     * @param wrapper source array wrapper
-     * @return new sorted {@link AbstractArrayWrapper} in ascending order
+     * <p>Repeatedly compares adjacent elements and swaps them if they are
+     * in the wrong order. Stops early if no swaps occur in a full iteration.
      */
     @Override
     public AbstractArrayWrapper<T> bubbleSort(AbstractArrayWrapper<T> wrapper) {
+
+        if (wrapper.isEmpty()) {
+            return wrapper;
+        }
 
         T[] arr = ArrayUtil.copyToArray(wrapper);
         int n = arr.length;
@@ -70,22 +64,17 @@ public class ArraySortServiceImpl<T extends Comparable<? super T>>
     }
 
     /**
-     * Sorts elements using Quick Sort algorithm.
+     * {@inheritDoc}
      *
-     * <p>Quick Sort is a divide-and-conquer algorithm that partitions
-     * the array around a pivot element and recursively sorts partitions.
-     *
-     * <p>Time complexity:
-     * <ul>
-     *     <li>Average case: O(n log n)</li>
-     *     <li>Worst case: O(n²)</li>
-     * </ul>
-     *
-     * @param wrapper source array wrapper
-     * @return new sorted {@link AbstractArrayWrapper} in ascending order
+     * <p>Divides the array around a pivot element and recursively sorts
+     * each partition.
      */
     @Override
     public AbstractArrayWrapper<T> quickSort(AbstractArrayWrapper<T> wrapper) {
+
+        if (wrapper.isEmpty()) {
+            return wrapper;
+        }
 
         T[] arr = ArrayUtil.copyToArray(wrapper);
         quickSort(arr, 0, arr.length - 1);

@@ -19,13 +19,18 @@ public class ArrayMathServiceImpl<T extends Number>
     /**
      * {@inheritDoc}
      *
-     * <p>Uses Stream API and converts each element to {@code double}.
+     * <p>Sum is calculated using Stream API.
      */
     @Override
-    public double sum(AbstractArrayWrapper<T> wrapper) {
-        return IntStream.range(0, wrapper.size())
+    public Optional<Double> sum(AbstractArrayWrapper<T> wrapper) {
+
+        if (wrapper.isEmpty()) {
+            return Optional.empty();
+        }
+        double result = IntStream.range(0, wrapper.size())
                 .mapToDouble(i -> wrapper.get(i).doubleValue())
                 .sum();
+        return Optional.of(result);
     }
 
     /**
@@ -40,10 +45,11 @@ public class ArrayMathServiceImpl<T extends Number>
             return Optional.empty();
         }
 
+        @SuppressWarnings("OptionalGetWithoutIsPresent")
         double avg = IntStream.range(0, wrapper.size())
                 .mapToDouble(i -> wrapper.get(i).doubleValue())
                 .average()
-                .orElse(0.0);
+                .getAsDouble();
 
         return Optional.of(avg);
     }
