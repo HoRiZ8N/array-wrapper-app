@@ -4,15 +4,18 @@ import com.innowise.arraywrapper.parser.ArrayParser;
 
 import java.util.Arrays;
 import java.util.regex.Pattern;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Implementation of {@link ArrayParser} for {@code int} values.
  *
- * <p>Supported delimiters: comma ({@code ,}), semicolon ({@code ;}),
- * dash ({@code -}), and whitespace.
+ * <p>Supported delimiters: comma ({@code ,}), semicolon ({@code ;})
+ * and whitespace.
  */
 public class ArrayIntegerParser implements ArrayParser<Integer> {
 
+    private static final Logger logger = LogManager.getLogger(ArrayIntegerParser.class);
     private static final Pattern DELIMITER = Pattern.compile("[,;\\s]+");
 
     /**
@@ -26,9 +29,13 @@ public class ArrayIntegerParser implements ArrayParser<Integer> {
 
         String[] tokens = DELIMITER.split(line.trim());
 
-        return Arrays.stream(tokens)
+        Integer[] result = Arrays.stream(tokens)
                 .filter(token -> !token.isBlank())
                 .map(Integer::parseInt)
                 .toArray(Integer[]::new);
+
+        logger.debug("Parsed line '{}' into {} elements", line, result.length);
+
+        return result;
     }
 }

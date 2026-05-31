@@ -10,24 +10,26 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  * Reads raw string data from a text file using {@link Files#lines} (Java 8+).
  */
 public class ArrayDataReaderImpl implements ArrayDataReader {
 
+    private static final Logger logger = LogManager.getLogger(ArrayDataReaderImpl.class);
+
     /**
      * {@inheritDoc}
-     *
-     * <p>Reads all lines from the file at the given path using
-     * {@link Files#lines}.
-     *
-     * @throws ArrayWrapperException if the file does not exist or cannot be read
      */
     @Override
     public List<String> readLines(String path) {
         try (Stream<String> lines = Files.lines(Paths.get(path))) {
+            logger.info("Reading file: {}", path);
             return lines.collect(Collectors.toList());
         } catch (IOException e) {
+            logger.error("Failed to read file: {}", path, e);
             throw new ArrayWrapperException("Failed to read file: " + path);
         }
     }
