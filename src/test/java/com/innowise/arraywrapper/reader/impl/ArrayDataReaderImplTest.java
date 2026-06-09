@@ -22,7 +22,7 @@ class ArrayDataReaderImplTest {
     }
 
     @Test
-    void readLines_shouldReturnAllLines_whenFileHasMultipleLines() throws IOException {
+    void readLines_shouldReturnAllLines_whenFileHasMultipleLines() throws IOException, ArrayWrapperException {
         Path file = Files.createTempFile("test", ".txt");
         Files.writeString(file, "1, 2, 3\n4, 5, 6\n7, 8, 9");
 
@@ -37,7 +37,7 @@ class ArrayDataReaderImplTest {
     }
 
     @Test
-    void readLines_shouldReturnEmptyList_whenFileIsEmpty() throws IOException {
+    void readLines_shouldReturnEmptyList_whenFileIsEmpty() throws IOException, ArrayWrapperException {
         Path file = Files.createTempFile("test", ".txt");
 
         List<String> lines = reader.readLines(file.toString());
@@ -48,7 +48,7 @@ class ArrayDataReaderImplTest {
     }
 
     @Test
-    void readLines_shouldReturnEmptyLines_whenFileHasBlankLines() throws IOException {
+    void readLines_shouldReturnEmptyLines_whenFileHasBlankLines() throws IOException, ArrayWrapperException {
         Path file = Files.createTempFile("test", ".txt");
         Files.writeString(file, "1, 2, 3\n\n4, 5, 6");
 
