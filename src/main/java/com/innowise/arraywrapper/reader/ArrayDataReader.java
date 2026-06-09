@@ -16,5 +16,5 @@ public interface ArrayDataReader {
      * @return list of raw lines; never {@code null}, may be empty
      * @throws ArrayWrapperException if the source cannot be read
      */
-    List<String> readLines(String path);
+    List<String> readLines(String path) throws ArrayWrapperException;
 }

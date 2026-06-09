@@ -24,7 +24,7 @@ public class ArrayDataReaderImpl implements ArrayDataReader {
      * {@inheritDoc}
      */
     @Override
-    public List<String> readLines(String path) {
+    public List<String> readLines(String path) throws ArrayWrapperException {
         try (Stream<String> lines = Files.lines(Paths.get(path))) {
             logger.info("Reading file: {}", path);
             return lines.collect(Collectors.toList());
