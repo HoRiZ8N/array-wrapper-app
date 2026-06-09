@@ -15,9 +15,10 @@ import org.apache.logging.log4j.Logger;
  */
 public class ArrayIntegerDataValidator implements ArrayDataValidator {
 
-    private static final Pattern DELIMITER = Pattern.compile("[,;\\s]+");
-    private static final Pattern INTEGER = Pattern.compile("-?\\d+");
     private static final Logger logger = LogManager.getLogger(ArrayIntegerDataValidator.class);
+
+    private static final Pattern DELIMITER_REG_EXP = Pattern.compile("[,;\\s]+");
+    private static final Pattern INTEGER_REG_EXP = Pattern.compile("-?\\d+");
 
     /**
      * {@inheritDoc}
@@ -28,10 +29,10 @@ public class ArrayIntegerDataValidator implements ArrayDataValidator {
             return true;
         }
 
-        String[] tokens = DELIMITER.split(line.trim());
+        String[] tokens = DELIMITER_REG_EXP.split(line.trim());
 
         for (String token : tokens) {
-            if (!token.isBlank() && !INTEGER.matcher(token).matches()) {
+            if (!token.isBlank() && !INTEGER_REG_EXP.matcher(token).matches()) {
                 logger.warn("Invalid token found: '{}'", token);
                 return false;
             }

@@ -16,7 +16,8 @@ import org.apache.logging.log4j.Logger;
 public class ArrayIntegerParser implements ArrayParser<Integer> {
 
     private static final Logger logger = LogManager.getLogger(ArrayIntegerParser.class);
-    private static final Pattern DELIMITER = Pattern.compile("[,;\\s]+");
+
+    private static final Pattern DELIMITER_REG_EXP = Pattern.compile("[,;\\s]+");
 
     /**
      * {@inheritDoc}
@@ -27,7 +28,7 @@ public class ArrayIntegerParser implements ArrayParser<Integer> {
             return new Integer[0];
         }
 
-        String[] tokens = DELIMITER.split(line.trim());
+        String[] tokens = DELIMITER_REG_EXP.split(line.trim());
 
         Integer[] result = Arrays.stream(tokens)
                 .filter(token -> !token.isBlank())
