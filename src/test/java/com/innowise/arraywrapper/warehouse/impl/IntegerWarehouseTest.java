@@ -24,7 +24,7 @@ class IntegerWarehouseTest {
         warehouse  = IntegerWarehouse.getInstance();
         repository = IntegerArrayWrapperRepository.getInstance();
 
-        repository.findAll().stream()
+        repository.findBySpecification(w -> true).stream()
                 .map(AbstractArrayWrapper::getId)
                 .toList()
                 .forEach(id -> {

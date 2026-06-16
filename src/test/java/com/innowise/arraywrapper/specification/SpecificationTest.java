@@ -31,7 +31,7 @@ class SpecificationTest {
         repository = IntegerArrayWrapperRepository.getInstance();
         warehouse  = IntegerWarehouse.getInstance();
 
-        repository.findAll().stream()
+        repository.findBySpecification(w -> true).stream()
                 .map(AbstractArrayWrapper::getId)
                 .toList()
                 .forEach(id -> {

@@ -3,8 +3,14 @@ package com.innowise.arraywrapper.parser.impl;
 import com.innowise.arraywrapper.parser.ArrayParser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.stream.Stream;
+
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class ArrayIntegerParserTest {
 
@@ -15,39 +21,22 @@ class ArrayIntegerParserTest {
         parser = new ArrayIntegerParser();
     }
 
-    @Test
-    void parse_shouldReturnEmptyArray_whenLineIsBlank() {
-        assertArrayEquals(new Integer[]{}, parser.parse(""));
+    static Stream<Arguments> parseCases() {
+        return Stream.of(
+                Arguments.of("blank line", "", new Integer[]{}),
+                Arguments.of("whitespace line", "   ", new Integer[]{}),
+                Arguments.of("comma separated", "1, 2, 3", new Integer[]{1, 2, 3}),
+                Arguments.of("semicolon separated", "1; 2; 3", new Integer[]{1, 2, 3}),
+                Arguments.of("space separated", "3 4 7", new Integer[]{3, 4, 7}),
+                Arguments.of("single integer", "42", new Integer[]{42}),
+                Arguments.of("negative integers", "-1, -2, -3", new Integer[]{-1, -2, -3})
+        );
     }
 
-    @Test
-    void parse_shouldReturnEmptyArray_whenLineIsWhitespace() {
-        assertArrayEquals(new Integer[]{}, parser.parse("   "));
-    }
-
-    @Test
-    void parse_shouldParseCommaSeparatedIntegers() {
-        assertArrayEquals(new Integer[]{1, 2, 3}, parser.parse("1, 2, 3"));
-    }
-
-    @Test
-    void parse_shouldParseSemicolonSeparatedIntegers() {
-        assertArrayEquals(new Integer[]{1, 2, 3}, parser.parse("1; 2; 3"));
-    }
-
-    @Test
-    void parse_shouldParseSpaceSeparatedIntegers() {
-        assertArrayEquals(new Integer[]{3, 4, 7}, parser.parse("3 4 7"));
-    }
-
-    @Test
-    void parse_shouldParseSingleInteger() {
-        assertArrayEquals(new Integer[]{42}, parser.parse("42"));
-    }
-
-    @Test
-    void parse_shouldParseNegativeIntegers() {
-        assertArrayEquals(new Integer[]{-1, -2, -3}, parser.parse("-1, -2, -3"));
+    @ParameterizedTest(name = "{0}")
+    @MethodSource("parseCases")
+    void parse_shouldReturnExpectedArray(String description, String line, Integer[] expected) {
+        assertArrayEquals(expected, parser.parse(line));
     }
 
     @Test

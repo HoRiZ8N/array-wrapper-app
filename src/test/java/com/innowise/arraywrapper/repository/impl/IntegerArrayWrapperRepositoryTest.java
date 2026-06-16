@@ -22,7 +22,7 @@ class IntegerArrayWrapperRepositoryTest {
     @BeforeEach
     void setUp() {
         repository = IntegerArrayWrapperRepository.getInstance();
-        repository.findAll().stream()
+        repository.findBySpecification(w -> true).stream()
                 .map(AbstractArrayWrapper::getId)
                 .toList()
                 .forEach(repository::remove);
@@ -42,7 +42,7 @@ class IntegerArrayWrapperRepositoryTest {
     @Test
     void add_shouldIncreaseSize_whenWrapperIsAdded() {
         repository.add(new IntegerArrayWrapper(new Integer[]{1, 2, 3}));
-        assertEquals(1, repository.findAll().size());
+        assertEquals(1, repository.findBySpecification(w -> true).size());
     }
 
     @Test
@@ -50,7 +50,7 @@ class IntegerArrayWrapperRepositoryTest {
         repository.add(new IntegerArrayWrapper(new Integer[]{1}));
         repository.add(new IntegerArrayWrapper(new Integer[]{2}));
         repository.add(new IntegerArrayWrapper(new Integer[]{3}));
-        assertEquals(3, repository.findAll().size());
+        assertEquals(3, repository.findBySpecification(w -> true).size());
     }
 
     @Test
@@ -72,7 +72,7 @@ class IntegerArrayWrapperRepositoryTest {
         IntegerArrayWrapper wrapper = new IntegerArrayWrapper(new Integer[]{1, 2, 3});
         repository.add(wrapper);
         repository.remove(wrapper.getId());
-        assertEquals(0, repository.findAll().size());
+        assertEquals(0, repository.findBySpecification(w -> true).size());
     }
 
     @Test
@@ -89,7 +89,7 @@ class IntegerArrayWrapperRepositoryTest {
 
         repository.remove(a.getId());
 
-        List<AbstractArrayWrapper<Integer>> remaining = repository.findAll();
+        List<AbstractArrayWrapper<Integer>> remaining = repository.findBySpecification(w -> true);
         assertEquals(1, remaining.size());
         assertEquals(b.getId(), remaining.get(0).getId());
     }
@@ -111,34 +111,5 @@ class IntegerArrayWrapperRepositoryTest {
     void findById_shouldReturnEmpty_whenIdDoesNotExist() {
         Optional<AbstractArrayWrapper<Integer>> result = repository.findById(-1L);
         assertFalse(result.isPresent());
-    }
-
-    // ── findAll ───────────────────────────────────────────────────────────────
-
-    @Test
-    void findAll_shouldReturnEmptyList_whenRepositoryIsEmpty() {
-        assertTrue(repository.findAll().isEmpty());
-    }
-
-    @Test
-    void findAll_shouldReturnAllAddedWrappers_whenRepositoryIsNotEmpty() {
-        IntegerArrayWrapper a = new IntegerArrayWrapper(new Integer[]{1, 2});
-        IntegerArrayWrapper b = new IntegerArrayWrapper(new Integer[]{3, 4});
-        repository.add(a);
-        repository.add(b);
-
-        List<AbstractArrayWrapper<Integer>> all = repository.findAll();
-
-        assertEquals(2, all.size());
-        assertTrue(all.stream().anyMatch(w -> w.getId() == a.getId()));
-        assertTrue(all.stream().anyMatch(w -> w.getId() == b.getId()));
-    }
-
-    @Test
-    void findAll_shouldReturnUnmodifiableList_whenCalled() {
-        repository.add(new IntegerArrayWrapper(new Integer[]{1}));
-        List<AbstractArrayWrapper<Integer>> all = repository.findAll();
-        assertThrows(UnsupportedOperationException.class,
-                () -> all.add(new IntegerArrayWrapper(new Integer[]{2})));
     }
 }
