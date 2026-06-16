@@ -102,17 +102,6 @@ public class IntegerArrayWrapperRepository
         return result;
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * <p>Returns an unmodifiable view; the underlying list order reflects
-     * insertion order.
-     */
-    @Override
-    public List<AbstractArrayWrapper<Integer>> findAll() {
-        logger.debug("findAll called, returning {} wrappers", storage.size());
-        return Collections.unmodifiableList(storage);
-    }
 
     /**
      * {@inheritDoc}

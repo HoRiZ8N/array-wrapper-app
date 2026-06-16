@@ -42,14 +42,6 @@ public interface ArrayWrapperRepository<T> {
     Optional<AbstractArrayWrapper<T>> findById(long id);
 
     /**
-     * Returns an unmodifiable view of all wrappers currently stored
-     * in the repository.
-     *
-     * @return list of all stored wrappers; never {@code null}
-     */
-    List<AbstractArrayWrapper<T>> findAll();
-
-    /**
      * Returns all wrappers that satisfy the given specification.
      *
      * @param specification the predicate to apply; must not be {@code null}
