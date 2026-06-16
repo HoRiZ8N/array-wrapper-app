@@ -10,7 +10,7 @@ import java.util.Optional;
  * Repository for storing and retrieving {@link AbstractArrayWrapper} instances.
  *
  * <p>Provides basic CRUD-like operations: add, remove, find by id,
- * and retrieve all stored wrappers.
+ * and query by specification.
  *
  * @param <T> the element type of the stored wrappers
  */
@@ -19,9 +19,11 @@ public interface ArrayWrapperRepository<T> {
     /**
      * Adds a wrapper to the repository.
      *
-     * @param wrapper the wrapper to add; must not be {@code null}
+     * @param wrapper the wrapper to add
+     * @return {@code true} if the wrapper was added, {@code false} if a wrapper
+     *         with the same id is already stored
      */
-    void add(AbstractArrayWrapper<T> wrapper);
+    boolean add(AbstractArrayWrapper<T> wrapper);
 
     /**
      * Removes a wrapper from the repository by its id.

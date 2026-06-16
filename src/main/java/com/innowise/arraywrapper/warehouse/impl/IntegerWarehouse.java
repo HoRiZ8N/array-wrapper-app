@@ -81,11 +81,7 @@ public class IntegerWarehouse implements Warehouse<Integer> {
      */
     @Override
     public Optional<ArrayStatistics> getStatistics(long id) {
-        Optional<ArrayStatistics> result = Optional.ofNullable(storage.get(id));
-        if (result.isEmpty()) {
-            logger.warn("No statistics found for wrapper id={}", id);
-        }
-        return result;
+        return Optional.ofNullable(storage.get(id));
     }
 
     /**

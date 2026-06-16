@@ -83,10 +83,10 @@ public class StatSpecification<T>
 
     private double extract(ArrayStatistics stats) {
         return switch (statType) {
-            case SUM     -> stats.getSum();
-            case AVERAGE -> stats.getAverage();
-            case MIN     -> stats.getMin();
-            case MAX     -> stats.getMax();
+            case SUM     -> stats.sum();
+            case AVERAGE -> stats.average();
+            case MIN     -> stats.min();
+            case MAX     -> stats.max();
             case COUNT   -> 0.0; // handled separately above
         };
     }

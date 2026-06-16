@@ -44,7 +44,7 @@ class IntegerWarehouseTest {
         warehouse.recalculate(wrapper);
 
         double sum = warehouse.getStatistics(wrapper.getId())
-                .map(ArrayStatistics::getSum)
+                .map(ArrayStatistics::sum)
                 .orElseThrow();
         assertEquals(15.0, sum);
     }
@@ -55,7 +55,7 @@ class IntegerWarehouseTest {
         warehouse.recalculate(wrapper);
 
         double avg = warehouse.getStatistics(wrapper.getId())
-                .map(ArrayStatistics::getAverage)
+                .map(ArrayStatistics::average)
                 .orElseThrow();
         assertEquals(20.0, avg);
     }
@@ -66,7 +66,7 @@ class IntegerWarehouseTest {
         warehouse.recalculate(wrapper);
 
         double min = warehouse.getStatistics(wrapper.getId())
-                .map(ArrayStatistics::getMin)
+                .map(ArrayStatistics::min)
                 .orElseThrow();
         assertEquals(1.0, min);
     }
@@ -77,7 +77,7 @@ class IntegerWarehouseTest {
         warehouse.recalculate(wrapper);
 
         double max = warehouse.getStatistics(wrapper.getId())
-                .map(ArrayStatistics::getMax)
+                .map(ArrayStatistics::max)
                 .orElseThrow();
         assertEquals(8.0, max);
     }
@@ -97,7 +97,7 @@ class IntegerWarehouseTest {
         warehouse.recalculate(wrapper);
 
         double sum = warehouse.getStatistics(wrapper.getId())
-                .map(ArrayStatistics::getSum)
+                .map(ArrayStatistics::sum)
                 .orElseThrow();
         assertEquals(15.0, sum);
     }
@@ -127,7 +127,7 @@ class IntegerWarehouseTest {
         wrapper.set(0, 10);
 
         double sum = warehouse.getStatistics(wrapper.getId())
-                .map(ArrayStatistics::getSum)
+                .map(ArrayStatistics::sum)
                 .orElseThrow();
         assertEquals(15.0, sum);
     }
@@ -144,7 +144,7 @@ class IntegerWarehouseTest {
         wrapper.set(2, 30);
 
         double sum = warehouse.getStatistics(wrapper.getId())
-                .map(ArrayStatistics::getSum)
+                .map(ArrayStatistics::sum)
                 .orElseThrow();
         assertEquals(60.0, sum);
     }

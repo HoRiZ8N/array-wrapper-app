@@ -11,4 +11,13 @@ package com.innowise.arraywrapper.warehouse;
  * @param min     smallest element
  * @param max     largest element
  */
-public record ArrayStatistics(double sum, double average, double min, double max) {}
+public record ArrayStatistics(double sum, double average, double min, double max) {
+
+    @Override
+    public String toString() {
+        return "ArrayStatistics{sum=" + sum
+                + ", average=" + average
+                + ", min=" + min
+                + ", max=" + max + "}";
+    }
+}

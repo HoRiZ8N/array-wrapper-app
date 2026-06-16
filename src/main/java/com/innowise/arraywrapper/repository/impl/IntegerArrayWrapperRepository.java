@@ -55,17 +55,15 @@ public class IntegerArrayWrapperRepository
 
     /**
      * {@inheritDoc}
-     *
-     * @throws IllegalArgumentException if {@code wrapper} is {@code null}
      */
     @Override
-    public void add(AbstractArrayWrapper<Integer> wrapper) {
-        if (wrapper == null) {
-            logger.error("Attempted to add null wrapper to repository");
-            throw new IllegalArgumentException("Wrapper must not be null");
+    public boolean add(AbstractArrayWrapper<Integer> wrapper) {
+        boolean exists = storage.stream().anyMatch(w -> w.getId() == wrapper.getId());
+        if (!exists) {
+            storage.add(wrapper);
         }
-        storage.add(wrapper);
-        logger.debug("Added wrapper id={} to repository, total={}", wrapper.getId(), storage.size());
+        logger.debug("Add wrapper id={}: added={}, total={}", wrapper.getId(), !exists, storage.size());
+        return !exists;
     }
 
     /**
@@ -77,11 +75,7 @@ public class IntegerArrayWrapperRepository
     @Override
     public boolean remove(long id) {
         boolean removed = storage.removeIf(w -> w.getId() == id);
-        if (removed) {
-            logger.debug("Removed wrapper id={} from repository, total={}", id, storage.size());
-        } else {
-            logger.warn("Wrapper id={} not found in repository, nothing removed", id);
-        }
+        logger.debug("Remove wrapper id={}: removed={}, total={}", id, removed, storage.size());
         return removed;
     }
 
@@ -92,15 +86,9 @@ public class IntegerArrayWrapperRepository
      */
     @Override
     public Optional<AbstractArrayWrapper<Integer>> findById(long id) {
-        Optional<AbstractArrayWrapper<Integer>> result = storage.stream()
+        return storage.stream()
                 .filter(w -> w.getId() == id)
                 .findFirst();
-        if (result.isPresent()) {
-            logger.debug("Found wrapper id={}", id);
-        } else {
-            logger.debug("Wrapper id={} not found", id);
-        }
-        return result;
     }
 
 

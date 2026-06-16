@@ -53,11 +53,6 @@ class IntegerArrayWrapperRepositoryTest {
         assertEquals(3, repository.findBySpecification(w -> true).size());
     }
 
-    @Test
-    void add_shouldThrowException_whenWrapperIsNull() {
-        assertThrows(IllegalArgumentException.class, () -> repository.add(null));
-    }
-
     // ── remove ────────────────────────────────────────────────────────────────
 
     @Test
