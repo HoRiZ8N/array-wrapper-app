@@ -19,7 +19,8 @@ import java.util.Optional;
  * lazily on first access via {@link #getInstance()}.
  *
  * <p>All wrappers are stored internally in an {@link ArrayList}; the list is
- * never exposed directly — {@link #findAll()} returns an unmodifiable view.
+ * never exposed directly — {@link #findBySpecification} returns a new
+ * unmodifiable list of matching wrappers.
  */
 public class IntegerArrayWrapperRepository
         implements ArrayWrapperRepository<Integer> {
